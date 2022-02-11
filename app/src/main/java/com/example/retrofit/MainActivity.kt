@@ -26,7 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener{
             val myNumber = etNumber.text.toString()
-            viewModel.getCustomPosts(Integer.parseInt(myNumber))
+
+            // hardcode the sort and order for example purpose
+            viewModel.getCustomPosts(Integer.parseInt(myNumber), "id", "desc")
 
             // observe the data
             viewModel.myCustomPost.observe(this, Observer { response ->
