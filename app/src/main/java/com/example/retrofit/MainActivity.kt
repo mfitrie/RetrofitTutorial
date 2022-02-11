@@ -30,15 +30,16 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-        val myPost = Post(2,2,"Sasuke","Android Retrofit")
+//        val myPost = Post(2,2,"Sasuke","Android Retrofit")
 //        viewModel.pushPost(myPost)
-        viewModel.pushPost2(2,2,"Sasuke","Android Retrofit")
+        viewModel.getPost()
+//        viewModel.pushPost2(2,2,"Sasuke","Android Retrofit")
         viewModel.myResponse.observe(this, Observer { response ->
             if(response.isSuccessful){
 //                response.body()?.let { myAdapter.setData(it) }
                 Log.d("Main", response.body().toString())
                 Log.d("Main", response.code().toString())
-                Log.d("Main", response.message())
+                Log.d("Main", response.headers().toString())
             }else{
                 Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
             }
