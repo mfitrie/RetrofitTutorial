@@ -23,15 +23,17 @@ class MainActivity : AppCompatActivity() {
 
 
 
+        val options: HashMap<String, String> = HashMap()
+        options.put("_sort","id")
+        options.put("_order","desc")
 
         button.setOnClickListener{
             val myNumber = etNumber.text.toString()
 
-            // hardcode the sort and order for example purpose
-            viewModel.getCustomPosts(Integer.parseInt(myNumber), "id", "desc")
+            viewModel.getCustomPosts2(Integer.parseInt(myNumber), options)
 
             // observe the data
-            viewModel.myCustomPost.observe(this, Observer { response ->
+            viewModel.myCustomPost2.observe(this, Observer { response ->
 
                 // only if request is successful
                 if(response.isSuccessful){
