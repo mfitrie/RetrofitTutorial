@@ -19,25 +19,34 @@ class MainActivity : AppCompatActivity() {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getPost()
+//        viewModel.getPost()
 
-        // observe the data
-        viewModel.myResponse.observe(this, Observer { response ->
 
-            // only if request is successful
-            if(response.isSuccessful){
-                Log.d("Response", response.body()?.userId.toString())
-                Log.d("Response", response.body()?.id.toString())
-                Log.d("Response", response.body()?.title!!)
-                Log.d("Response", response.body()?.body!!)
 
-                tvText.text = response.body()?.title!!
-            }else{
-                Log.d("Response", response.errorBody().toString())
-                tvText.text = response.code().toString()
 
-            }
-        })
+        button.setOnClickListener{
+            val myNumber = etNumber.text.toString()
+            viewModel.getPost2(Integer.parseInt(myNumber))
+
+            // observe the data
+            viewModel.myResponse2.observe(this, Observer { response ->
+
+                // only if request is successful
+                if(response.isSuccessful){
+                    Log.d("Response", response.body()?.userId.toString())
+                    Log.d("Response", response.body()?.id.toString())
+                    Log.d("Response", response.body()?.title!!)
+                    Log.d("Response", response.body()?.body!!)
+
+                    tvText.text = response.body().toString()
+                }else{
+                    Log.d("Response", response.errorBody().toString())
+                    tvText.text = response.code().toString()
+
+                }
+            })
+
+        }
 
 
     }
