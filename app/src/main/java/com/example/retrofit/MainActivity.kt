@@ -26,19 +26,22 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener{
             val myNumber = etNumber.text.toString()
-            viewModel.getPost2(Integer.parseInt(myNumber))
+            viewModel.getCustomPosts(Integer.parseInt(myNumber))
 
             // observe the data
-            viewModel.myResponse2.observe(this, Observer { response ->
+            viewModel.myCustomPost.observe(this, Observer { response ->
 
                 // only if request is successful
                 if(response.isSuccessful){
-                    Log.d("Response", response.body()?.userId.toString())
-                    Log.d("Response", response.body()?.id.toString())
-                    Log.d("Response", response.body()?.title!!)
-                    Log.d("Response", response.body()?.body!!)
 
                     tvText.text = response.body().toString()
+                    response.body()?.forEach{
+                        Log.d("Response", it.userId.toString())
+                        Log.d("Response", it.id.toString())
+                        Log.d("Response", it.title)
+                        Log.d("Response", it.body)
+                        Log.d("Response", "--------------------------------")
+                    }
                 }else{
                     Log.d("Response", response.errorBody().toString())
                     tvText.text = response.code().toString()
